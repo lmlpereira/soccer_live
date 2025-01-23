@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:soccer_live/model/live_match_model.dart';
 import 'package:soccer_live/patterns.dart';
+import 'package:soccer_live/widgets/live_match_data.dart';
 
 class AppHomeScreen extends StatelessWidget {
   const AppHomeScreen({super.key});
@@ -12,7 +14,37 @@ class AppHomeScreen extends StatelessWidget {
       appBar: headerParts(),
       body: Column(
         children: [
-          Padding(
+          liveMatchText(),
+          SizedBox(
+            height: 230,
+            child: ListView.builder(
+              itemCount: liveMatches.length,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(left: 20),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index){
+                LiveMatch live = liveMatches[index];
+                return GestureDetector(
+                  onTap: (){
+
+                  },
+                  child: liveMactchData(live: live),
+                );
+
+              })
+            ),
+
+            //up-coming matches
+          
+        ],
+      ),
+
+    );
+  }
+
+  Padding liveMatchText(){
+
+    return Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
@@ -41,7 +73,7 @@ class AppHomeScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Image.asset("assets/football/pl-png", width: 30, height: 30,),
+                      Image.asset("assets/football/pl.png", width: 30, height: 30,),
                       const SizedBox(width: 3,),
                       const Text(
                         "Premier League",
@@ -60,11 +92,7 @@ class AppHomeScreen extends StatelessWidget {
 
                 )
               ],),
-          ),
-        ],
-      ),
-
-    );
+          );
   }
 
   AppBar headerParts(){
@@ -122,3 +150,4 @@ class AppHomeScreen extends StatelessWidget {
       );
   }
 }
+
