@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:soccer_live/match_detail_screen_data.dart';
 import 'package:soccer_live/model/live_match_model.dart';
+import 'package:soccer_live/model/up_comming_model.dart';
 import 'package:soccer_live/patterns.dart';
 import 'package:soccer_live/widgets/live_match_data.dart';
+import 'package:soccer_live/widgets/up_coming_match.dart';
 
 class AppHomeScreen extends StatelessWidget {
   const AppHomeScreen({super.key});
@@ -26,7 +29,7 @@ class AppHomeScreen extends StatelessWidget {
                 LiveMatch live = liveMatches[index];
                 return GestureDetector(
                   onTap: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => MatchDetailScreen(liveMatch:live)));
                   },
                   child: liveMactchData(live: live),
                 );
@@ -35,7 +38,47 @@ class AppHomeScreen extends StatelessWidget {
             ),
 
             //up-coming matches
-          
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                children: [
+                  const Text("Up-Coming Matches", 
+                  style:TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                    letterSpacing: -1.5,
+                    color: Colors.black54
+                    )
+                  ),
+                  const Spacer(),
+                  TextButton(
+                    style: TextButton.styleFrom(foregroundColor: kprimaryColor),
+                    onPressed: (){
+
+                    }, 
+                    child: const Text("See all", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: upcomingMatches.length,
+                  itemBuilder: (context, index){
+                    final upMatch = upcomingMatches[index];
+                    return UpComingMatches(upMatch: upMatch);
+                  }
+                ),
+              ),
+
+            
+            ),
+
+
         ],
       ),
 
@@ -150,4 +193,6 @@ class AppHomeScreen extends StatelessWidget {
       );
   }
 }
+
+
 
